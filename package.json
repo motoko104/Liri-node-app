@@ -18,8 +18,14 @@
   "homepage": "https://github.com/motoko104/Liri-node-app#readme",
   "keywords": [],
   "dependencies": {
+    "bandsintown": "^1.0.1",
     "dotenv": "^6.1.0",
-    "request": "^2.88.0"
+    "fs": "0.0.1-security",
+    "node-spotify-api": "^1.0.7",
+    "omdb": "^0.8.0",
+    "request": "^2.88.0",
+    "spotify-web-api-js": "^1.1.1",
+    "spotify-web-api-node": "^4.0.0"
   },
   "devDependencies": {}
 }
