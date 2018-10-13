@@ -2,6 +2,7 @@
 require("dotenv").config();
 const chalk = require('chalk');
 const keys = require("./keys");
+const moment = require('moment');
 const fs = require("fs");
 const request = require("request");
 const Spotify = require("node-spotify-api");
@@ -58,13 +59,14 @@ let BandEvnt = (band) => {
                 console.log(chalk.bold.magentaBright("-------------------------------------------------------------\n"));
                 console.log(chalk.yellow("Venue: ") + data[i].venue.name);
                 console.log(chalk.yellow("Location: ") + data[i].venue.city);
-                console.log(chalk.yellow("Date of Concert: ") + data[i].datetime);
+                    let startTm = data[i].datetime;
+                    let date = moment(startTm).format('MMMM Do YYYY, h:mm:ss a');
+                console.log(chalk.yellow("Date of Concert: ") + date);
                 console.log(chalk.bold.magentaBright("\n-------------------------------------------------------------\n"));
             }
         }
     });
 };
-
 //Searching IMDB by movie titles
 let movieSearch = (mov) => {
     //need to find solution for default movie search
@@ -94,14 +96,33 @@ let movieSearch = (mov) => {
 }
 //Using text in the random.txt file to call one of LIRI's commands
 const doingIt = () => {
+    fs.readFile("random.txt", (err, data) =>{
+        if(err){
+            console.log(chalk.redBright("Ooops! Error occured: " + err));
+        }
+        let text = data.toString();
+        data = text.split(",");
+        let command = data[0].trim();
+        let search = data[1].trim();
 
+        switch(command){
+            case 'spotify-this-song':
+                spotifySong(search);
+                break;
+            case 'movie-this':
+                movieSearch(search);
+                break;
+            case 'concert-this':
+                BandEvnt(search);
+                break;
+        }
+    });
 }
 //Displays list of commands that are acceptable
 const optionsList = () => {
     console.log(chalk.bold.red("\nSorry invalid command was entered. Please try again. \n \n The requests you can make are:"));
     console.log(chalk.greenBright("\t spotify-this-song 'SONG TITLE GOES HERE' \n \t concert-this 'ARTIST/BAND NAME GOES HERE'\n \t movie-this 'MOVIE TITLE GOES HERE'\n \t do-what-it-says \n"));
 };
-
 // Codes for each command input
 switch (command) {
     case 'spotify-this-song':
@@ -115,6 +136,7 @@ switch (command) {
         break;
     case 'do-what-it-says':
         doingIt();
+        break;
     default:
         optionsList();
 }
