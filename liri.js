@@ -42,7 +42,7 @@ let spotifySong = (song) => {
 }
 //Searching Bands in town by band
 let BandEvnt = (band) => {
-    //need to fix default band conditions
+    //need to fix default band conditions, change orientation of 
     if (band === '') {
         band = 'Marilyn Manson';
     }
