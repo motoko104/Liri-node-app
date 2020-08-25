@@ -1,7 +1,7 @@
 {
   "name": "liri-node-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "_LIRI is a **L**anguage **I**nterpretation and **R**ecognition **I**interface that is used through the command line to take in paramaters and gives back data searched._",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
